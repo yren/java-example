@@ -2,22 +2,18 @@ package me.lokvin.baeldung.trywithresource;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.PrintWriter;
 import java.util.Scanner;
 
-public class Resources2 {
+public class Resource3 {
     public static void main(String[] args) {
-        Scanner scanner = null;
-        try {
-            scanner = new Scanner(new File("target/test.txt"));
+        try (Scanner scanner = new Scanner(new File("target/test.txt"));
+             PrintWriter printWriter = new PrintWriter(new File("target/testWrite.txt"))) {
             while (scanner.hasNext()) {
-                System.out.println(scanner.nextLine());
+                printWriter.print(scanner.nextLine());
             }
         } catch (FileNotFoundException e) {
             e.printStackTrace();
-        } finally {
-            if (scanner != null) {
-                scanner.close();
-            }
         }
     }
 }
